@@ -1,20 +1,27 @@
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        val leftList = input.map { it.split(' ').first().toInt() }.sorted()
+        val rightList = input.map { it.split(' ').last().toInt() }.sorted()
+
+        return leftList.mapIndexed { index, value ->
+            val other = rightList[index]
+            if (value > other) value - other else other - value
+        }.sum()
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val leftList = input.map { it.split(' ').first().toInt() }.sorted()
+        val rightList = input.map { it.split(' ').last().toInt() }.sorted()
+
+        return leftList.sumOf { value ->
+            value * rightList.count { it == value }
+        }
     }
 
-    // Test if implementation meets criteria from the description, like:
-    check(part1(listOf("test_input")) == 1)
-
-    // Or read a large test input from the `src/Day01_test.txt` file:
     val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    part1(testInput).println()
+    part2(testInput).println()
 
-    // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day01")
     part1(input).println()
     part2(input).println()
