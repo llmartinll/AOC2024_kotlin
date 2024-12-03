@@ -21,9 +21,11 @@ fun main() {
     }
 
     fun isSafe2(numbers: List<Int>): Boolean {
-        return (listOf(numbers) + (0..numbers.lastIndex).map { removeIndex ->
-            numbers.filterIndexed { index, _ -> index != removeIndex }
-        }).any(::isSafe)
+        val variations = listOf(numbers) +
+                (0..numbers.lastIndex).map { removeIndex ->
+                    numbers.filterIndexed { index, _ -> index != removeIndex }
+                }
+        return variations.any(::isSafe)
     }
 
     fun part1(input: List<String>): Int {
